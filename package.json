@@ -1,0 +1,27 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lizaveta01/virtual-keyboard.git"
+  },
+  "keywords": [
+    "js",
+    "webpack"
+  ],
+  "author": "Liza Petrova <goldglaider@gmail>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lizaveta01/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/Lizaveta01/virtual-keyboard#readme",
+  "devDependencies": {
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
