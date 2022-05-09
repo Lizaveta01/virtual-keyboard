@@ -210,6 +210,55 @@ class Keyboard {
       this.text.selectionEnd = this.text.selectionStart;
     }
   }
+
+  showLanguage(lang, shift = false) {
+    Array.from(this.keyboard.querySelectorAll('.keyboard__key')).forEach(
+      (e) => {
+        e.textContent = keyboardKeys[e.id][lang];
+      },
+    );
+
+    this.switchCaps(shift);
+  }
+
+  switchCaps(shiftKey) {
+    const showUpperCase = (this.caps && !shiftKey) || (!this.caps && shiftKey);
+    const toCase = showUpperCase ? 'toUpperCase' : 'toLowerCase';
+    Array.from(this.keyboard.querySelectorAll('.keyboard__key')).forEach(
+      (e) => {
+        if (!keyboardKeys[e.id].func) {
+          if (e.id === 'Backquote' && this.lang === 'en') {
+            e.textContent = shiftKey ? '~' : '`';
+          } else if (e.id === 'Minus' && this.lang === 'en') {
+            e.textContent = shiftKey ? '_' : '-';
+          } else if (e.id === 'Equal' && this.lang === 'en') {
+            e.textContent = shiftKey ? '+' : '=';
+          } else if (e.id === 'BracketLeft' && this.lang === 'en') {
+            e.textContent = shiftKey ? '{' : '[';
+          } else if (e.id === 'BracketRight' && this.lang === 'en') {
+            e.textContent = shiftKey ? '}' : ']';
+          } else if (e.id === 'Backslash' && this.lang === 'en') {
+            e.textContent = shiftKey ? '|' : '\\';
+          } else if (e.id === 'Semicolon' && this.lang === 'en') {
+            e.textContent = shiftKey ? ':' : ';';
+          } else if (e.id === 'Quote' && this.lang === 'en') {
+            e.textContent = shiftKey ? '"' : "'";
+          } else if (e.id === 'Comma' && this.lang === 'en') {
+            e.textContent = shiftKey ? '<' : ',';
+          } else if (e.id === 'Period' && this.lang === 'en') {
+            e.textContent = shiftKey ? '>' : '.';
+          } else if (e.id === 'Slash' && this.lang === 'en') {
+            e.textContent = shiftKey ? '?' : '/';
+          } else if (e.id === 'Slash' && this.lang === 'ru') {
+            e.textContent = shiftKey ? ',' : '.';
+          } else {
+            e.textContent = e.textContent[toCase]();
+          }
+        }
+      },
+    );
+  }
+
 }
 
 window.addEventListener('DOMContentLoaded', () => {
