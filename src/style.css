@@ -1,7 +1,7 @@
 @import url(CSS/normalize.css);
 
 html {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Consolas';
     font-size: 10px;
   }
   
@@ -25,7 +25,7 @@ html {
   .text {
     height: 25vh;
     width: 100%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Consolas';
     font-size: 2rem;
     margin: 0 auto;
     padding: 1%;
@@ -40,7 +40,7 @@ html {
     width: 100%;
     margin: 1% auto;
     padding: 1%;
-    border: 1px solid #b4b4b4;
+    border: 1px solid #610279;
     border-radius: 5px;
     user-select: none;
   }
@@ -55,18 +55,18 @@ html {
     height: 50px;
     width: 50px;
     margin: 3px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Consolas';
     font-size: 1.6rem;
-    border: 1px solid #b4b4b4;
+    border: 1px solid #5f026e;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 5px rgba(56, 0, 111, 0.3);
     cursor: pointer;
     outline: none;
     transition: all 0.5s;
   }
   
   .keyboard__key.active {
-    background: rgba(48, 48, 48, 0.2);
+    background: rgba(83, 0, 92, 0.378);
     border-radius: 15px;
     box-shadow: none;
   }
@@ -77,7 +77,7 @@ html {
   }
   
   .keyboard__key:hover {
-    background: rgba(48, 48, 48, 0.2);
+    background: rgba(83, 0, 92, 0.378);
   }
   
   .keyboard__key_wide {
