@@ -48,6 +48,69 @@ class Keyboard {
 
     this.createListeners();
   }
+
+  createListeners() {
+    this.text.addEventListener('blur', () => {
+      setTimeout(() => {
+        this.text.focus();
+      }, 0);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      e.stopImmediatePropagation();
+
+      const key = document.getElementById(e.code);
+      if (!key) {
+        e.preventDefault();
+        return;
+      }
+
+      if (e.code === 'CapsLock' && !e.repeat) {
+        e.preventDefault();
+        this.caps = !this.caps;
+
+        const addRemove = this.caps ? 'add' : 'remove';
+        key.classList[addRemove]('active');
+
+        this.switchCaps(e.shiftKey);
+      } else {
+        key.classList.add('active');
+
+        if ((e.ctrlKey || e.metaKey) && e.altKey && !e.repeat) {
+          e.preventDefault();
+          this.lang = this.lang === 'ru' ? 'en' : 'ru';
+          localStorage.setItem('lang', this.lang);
+          this.showLanguage(this.lang, e.shiftKey);
+        } else if (!keyboardKeys[e.code].func) {
+          e.preventDefault();
+          this.insertText(key.textContent);
+        } else if (e.key === 'Shift' && !e.repeat) {
+          e.preventDefault();
+          this.switchCaps(e.shiftKey);
+        } else if (e.code === 'Tab') {
+          e.preventDefault();
+          this.insertText('\t');
+        } else if (e.code === 'Enter') {
+          e.preventDefault();
+          this.insertText('\n');
+        } else if (e.code === 'Backspace') {
+          e.preventDefault();
+          this.pressBackspace();
+        } else if (e.code === 'Delete') {
+          e.preventDefault();
+          this.pressDelete();
+        } else if (e.code === 'ArrowUp' && !e.isTrusted) {
+          this.arrowUp();
+        } else if (e.code === 'ArrowDown' && !e.isTrusted) {
+          this.arrowDown();
+        } else if (e.code === 'ArrowLeft' && !e.isTrusted) {
+          this.arrowLeft();
+        } else if (e.code === 'ArrowRight' && !e.isTrusted) {
+          this.arrowRight();
+        }
+      }
+    });
+  }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
