@@ -110,6 +110,105 @@ class Keyboard {
         }
       }
     });
+    document.addEventListener('keyup', (e) => {
+      e.stopImmediatePropagation();
+
+      const key = document.getElementById(e.code);
+      if (!key) {
+        e.preventDefault();
+        return;
+      }
+
+      if (e.code !== 'CapsLock') {
+        key.classList.remove('active');
+        if (e.key === 'Shift') {
+          e.preventDefault();
+          this.switchCaps(e.shiftKey);
+        }
+      }
+    });
+
+    this.keyboard.addEventListener('click', (e) => {
+      this.text.focus();
+      const eventKeyDown = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelable: true,
+        code: e.target.id,
+        view: window,
+      });
+      document.dispatchEvent(eventKeyDown);
+
+      this.text.focus();
+      const eventKeyUp = new KeyboardEvent('keyup', {
+        bubbles: true,
+        cancelable: true,
+        code: e.target.id,
+        view: window,
+      });
+      document.dispatchEvent(eventKeyUp);
+    });
+  }
+
+  arrowUp() {
+    this.text.selectionStart = 0;
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  arrowDown() {
+    this.text.selectionEnd = this.text.textLength;
+    this.text.selectionStart = this.text.selectionEnd;
+  }
+
+  arrowLeft() {
+    this.text.selectionStart = Math.max(0, this.text.selectionStart - 1);
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  arrowRight() {
+    this.text.selectionStart = Math.min(
+      this.text.textLength,
+      this.text.selectionEnd + 1,
+    );
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  insertText(chars) {
+    const cursorAt = this.text.selectionStart;
+
+    this.text.value = this.text.value.slice(0, cursorAt)
+      + chars
+      + this.text.value.slice(this.text.selectionEnd);
+
+    this.text.selectionStart = cursorAt + chars.length;
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  pressBackspace() {
+    if (this.text.selectionStart !== this.text.selectionEnd) {
+      this.insertText('');
+    } else {
+      const cursorAt = Math.max(0, this.text.selectionStart - 1);
+
+      this.text.value = this.text.value.slice(0, cursorAt)
+        + this.text.value.slice(this.text.selectionEnd);
+
+      this.text.selectionStart = cursorAt;
+      this.text.selectionEnd = this.text.selectionStart;
+    }
+  }
+
+  pressDelete() {
+    if (this.text.selectionStart !== this.text.selectionEnd) {
+      this.insertText('');
+    } else {
+      const cursorAt = this.text.selectionStart;
+
+      this.text.value = this.text.value.slice(0, cursorAt)
+        + this.text.value.slice(cursorAt + 1);
+
+      this.text.selectionStart = cursorAt;
+      this.text.selectionEnd = this.text.selectionStart;
+    }
   }
 }
 
